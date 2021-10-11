@@ -1,9 +1,4 @@
-Nume echipa: The Followers of Giumale
-Nume participanti:
-	Obedeanu Marian-Alexandru
-	Axinia Claudiu-Andrei
-	Hodoboc-Velescu Tudor
-	Raduna Daniel Florin
+Nume student: Hodoboc-Velescu Tudor
 
 Instructiuni de compilare:
 	Pentru compilare se foloseste comanda "make" sau "make build".
@@ -127,8 +122,3 @@ Clasa Main
 
 Surse de inspiratie:
 	Documentatia xboard
-
-Responsabilitatea fiecarui membru al echipei
-	Toti participantii echipei au contribuit la realizarea acestei etape din
-	proiect. Discutiile legate de proiect au fost purtate, in cea mai mare
-	parte, pe discord.
