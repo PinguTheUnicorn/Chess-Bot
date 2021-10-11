@@ -1,0 +1,134 @@
+Nume echipa: The Followers of Giumale
+Nume participanti:
+	Obedeanu Marian-Alexandru
+	Axinia Claudiu-Andrei
+	Hodoboc-Velescu Tudor
+	Raduna Daniel Florin
+
+Instructiuni de compilare:
+	Pentru compilare se foloseste comanda "make" sau "make build".
+	Fisierul Makefile trebuie sa fie in acelasi director cu fisierele sursa.
+
+Detalii despre structura  proiectului
+	Proiectul este alcatuit din 3 fisiere sursa. S-a folosit, pentru
+	implementare, limbajul java.
+
+Clasa Board
+	Aceasta clasa modeleaza tabla de sah. Tabla este reprezentata de o matrice
+	de dimensiune 8x8 in care sunt asezate piesele. Piesele sunt asezate
+	initial conform regulilor. Pe pozitiile in care trebuie sa exista o piesa
+	se afla un obiect de tip Piece cu numele si culoarea piesei. In rest, se
+	gaseste null. De asemenea, avem diverse variabile pentru a retine pozitia
+	regilor si pentru a verifica daca se pote face rocade. Clasa mai are si un
+	constructor ce primeste ca parametru un obiect de tip Board pentru a se
+	face o copie deep a tablei date ca argument.
+
+	Metoda move
+	In aceasta metoda se actualizeaza in timp real mutarile de pe clientul de
+	xboard cu reprezentarea lor in matrice. Aceasta a fost modificata fata de
+	etapa anterioara pentru a primi si mutari de tip en passant si rocada.
+
+	Metoda generateMovePawnBlack
+	In aceasta metoda cautam toate mutarile posibile pentru toti pionii negri.
+	Acestea sunt adaugate intr-un vector, dupa ce au fost verificate ca sunt
+	valide pentru sah.
+
+	Metoda generateMovePawnWhite
+	Aceasta metoda este similara cu metoda generateMoveBlack, doar ca indexii
+	folositi aici sunt adaptati pentru pionii de culoare alba.
+
+	Metoda generateMoveVertHorz
+	Aceasta metoda este folosita pentru mutarea turei si a reginei. Se pleaca
+	de la o coordonata pe tabla si se cauta in sus, jos stanga si dreapta toate
+	mutarile posibile. Daca se pot lua piese, acestea se verifica ca sunt de
+	culoarea adversa. De asemenea, toate mutarile sunt verificate antisah.
+
+	Metoda moveRook
+	Aceasta metoda cauta toate turele si, folosind metoda anterioara, se
+	genereaza mutari pentru aceste piese.
+
+	Metoda generateMoveDiagonally
+	Asemanator cu metoda generateMoveVertHorz, cautam toate mutarile posibile,
+	plecand de la niste coordonate date. Acestea se cauta pe diagonala si sunt
+	verificate antisah.
+
+	Metoda moveBishop
+	Aceasta metoda cauta toti nebunii si, folosind metoda anterioara, se
+	genereaza mutari pentru aceste piese.
+
+	Metoda moveQueen
+	La fel ca metodele anterioare, se cauta toate reginele si se genereaza toate
+	miscarile posibile pentru acestea, atat pe diagonala, cat si pe verticala si
+	orizontala.
+
+	Metoda moveKnight
+	Aceasta metoda cauta toti caii de pe tabla si verifica ce miscari valide pot
+	face. Acestea sunt adaugate intr-un vector si sunt intoarse la final.
+
+	Metoda EnPassant
+	Aceasta metoda cauta daca exista mutari en passant valide. Se verifica ultima
+	mutare facuta si cauta daca aceasta a fost de doua pozitii, facuta de un
+	pion. Daca da, se cauta daca exista pioni adversi in stanga si/sau dreapta
+	care si genereaza miscarile valide pentru acestia.
+
+	Metoda moveKing
+	Aceasta metoda genereaza toate mutarile valide pentru rege. Fiecare este
+	verificata antisah. La final sunt intoarse toate.
+
+	Metoda generateMove
+	In aceasta metoda se inglobeaza toate metodele create anterior. Se
+	genereaza miscari pentru fiecare tip de piesa. Mai intai se verifica
+	daca exista vreo rocada posibila. In caz afirmativ, se aplica rocada. In
+	caz negativ se merge mai departe. De asemenea, se prioritizeaza si miscarile
+	de tip EnPassant pentru a se putea observa. Pentru restul miscarilor, se
+	genereaza aleatoriu una dintre acestea.
+
+	Metoda isCheck
+	Aceasta metoda verifica daca o miscare conduce la sah. Se foloseste
+	constructorul cu parametru a clasei Board pentru a se genera un deep-copy
+	a tablei curente. Facem acest lucru pentru a nu trimite mutari ilegale.
+	Apoi, pe copie, se aplica mutarea si se cauta toate posibilitatile de sah.
+	Daca se gaseste sah, se intoarce true, altfel false.
+
+	Metoda rocadaBlack
+	In aceasta metoda se verifica daca se poate face vreo rocada pentru piesele
+	negre. Se verifica daca regele nu a fost mutat, daca tura cu care se vrea
+	sa se faca rocada nu a fost mutata sau capturata si daca se indeplinesc si
+	restul de conditii(sa nu se afle nicio pieasa intre tura si rege, sa nu se
+	ajunga in sah etc).
+
+	Metoda rocadaWhite
+	Aceasta metoda este similara cu cea anterioara,fiind adaptata pentru piesele
+	albe.
+
+Clasa Piece
+	Aceasta clasa creaza o piesa si are campurile nume si culoare.
+
+Clasa Main
+	In clasa Main, avem un obiect de tip Scanner ce este folosit in ambele metode.
+
+	Metoda initial
+	In aceasta metoda se citesc primele comenzi transmise de xboard si se trimit
+	configuratiile jocului.
+
+	Metoda game
+	In aceasta metoda verificam tipul de semnal transmis. In cazul in care primim
+	o mutare, actualizam tabla si apelam, in functie de caz, metodele care
+	genereaza mutari. De asemenea, de fiecare data cand xboard-ul trimite un
+	semnal, se verifica tipul acestuia:
+	-new: in aceasta caz, se creaza o tabla noua de joc in care culoarea default
+	a bot-ului este negru;
+	-force: in acest caz, bot-ul se opreste si se actualizeaza culoarea pentru a
+	putea incepe in orice moment sa "gandeasca" din nou;
+	-go: verifica daca bot-ul gandeste, caz in care acesta trebuie sa schimbe
+	culorile; daca aceste nu gandeste, incepe sa gandeasca din nou si va genera
+	mutari in functie de culoarea actuala;
+	-quit: daca se primeste aceasta comanda, se iese din joc.
+
+Surse de inspiratie:
+	Documentatia xboard
+
+Responsabilitatea fiecarui membru al echipei
+	Toti participantii echipei au contribuit la realizarea acestei etape din
+	proiect. Discutiile legate de proiect au fost purtate, in cea mai mare
+	parte, pe discord.
