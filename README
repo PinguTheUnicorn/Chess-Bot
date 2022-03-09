@@ -1,7 +1,7 @@
 Nume student: Hodoboc-Velescu Tudor
 
 Instructiuni de compilare:
-	Pentru compilare se foloseste comanda "make" sau "make build".
+	Pentru compilare se folosesc comenzile "make" sau "make build".
 	Fisierul Makefile trebuie sa fie in acelasi director cu fisierele sursa.
 
 Detalii despre structura  proiectului
